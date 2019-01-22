@@ -27,7 +27,7 @@ app.post('/rows/images', upload.single('image'),  (req, res) => {
   const filePath = path.join(__dirname, '../', req.file.path);
   fs.unlinkSync(filePath);
 
-  Row.findByIdAndUpdate(_id, { $set: {image: req.file.filename} }, { new: true })
+  Row.findByIdAndUpdate(_id, { $set: {image: 'uploaded'} }, { new: true })
   .then(row => {
       if (!row) {
           return res.status(404).send('row was not found')
@@ -43,7 +43,7 @@ app.post('/columns/images', upload.single('image'),  (req, res) => {
   const filePath = path.join(__dirname, '../', req.file.path);
   fs.unlinkSync(filePath);
 
-  Column.findByIdAndUpdate(_id, { $set: {image: req.file.filename} }, { new: true })
+  Column.findByIdAndUpdate(_id, { $set: {image: 'uploaded'} }, { new: true })
     .then(column => {
         if (!column) {
             return res.status(404).send('column was not found')
