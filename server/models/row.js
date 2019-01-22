@@ -25,9 +25,3 @@ const Row = mongoose.model('Row', rowSchema);
 module.exports = {
     Row
 }
-
-// image: {
-//     data: Buffer,
-//     contentType: String,
-//     default:
-// },

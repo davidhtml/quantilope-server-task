@@ -32,13 +32,13 @@ app.post('/rows/images', upload.single('image'),  (req, res) => {
   fs.unlinkSync(filePath);
 
   Row.findByIdAndUpdate(_id, { $set: {image} }, { new: true })
-          .then(row => {
-              if (!row) {
-                  return res.status(404).send('row was not found')
-              }
-              res.send(row)
-          })
-          .catch(e => res.status(400).send('ups smth went wrong: 400'))
+  .then(row => {
+      if (!row) {
+          return res.status(404).send('row was not found')
+      }
+      res.send(row)
+  })
+  .catch(e => res.status(400).send('ups smth went wrong: 400'))
 })
 
 //Post images in columns
@@ -51,25 +51,25 @@ app.post('/columns/images', upload.single('image'),  (req, res) => {
   const filePath = path.join(__dirname, '../', req.file.path);
   fs.unlinkSync(filePath);
   Column.findByIdAndUpdate(_id, { $set: {image} }, { new: true })
-          .then(column => {
-              if (!column) {
-                  return res.status(404).send('column was not found')
-              }
-              res.send(column)
-          })
-          .catch(e => res.status(400).send('ups smth went wrong: 400'))
+    .then(column => {
+        if (!column) {
+            return res.status(404).send('column was not found')
+        }
+        res.send(column)
+    })
+    .catch(e => res.status(400).send('ups smth went wrong: 400'))
 })
 
 // POST column
 app.post('/table1/columns', (req, res) => {
-    const column = new Column(req.body);
-    column.save()
-        .then(savedCol => {
-            res.status(200).send(savedCol);
-        })
-        .catch(e => {
-            res.status(404).send('error happened while creating new column');
-        })
+  const column = new Column(req.body);
+  column.save()
+  .then(savedCol => {
+      res.status(200).send(savedCol);
+  })
+  .catch(e => {
+      res.status(404).send('error happened while creating new column');
+  })
 })
 
 // POST row
@@ -86,7 +86,6 @@ app.post('/table1/rows', (req, res) => {
 
 //get ALL how to get all, rows, columns and table name
 app.get('/table1/all', async (req, res) => {
-
   try {
     const columns = await Column.find();
     const rows = await Row.find();
@@ -107,7 +106,6 @@ app.get('/table1/all', async (req, res) => {
   } catch (e) {
     res.status(404).send('error while sending all table')
   }
-
 })
 
 //PATCH row
@@ -166,18 +164,17 @@ app.delete('/table1/rows', (req, res) => {
 
 //delete columns
 app.delete('/table1/columns', (req, res) => {
-    const { _id }= req.body;
+  const { _id }= req.body;
 
-    Column.findByIdAndRemove(_id)
-        .then(columns => {
-            if (!columns) {
-                return res.status(404).send('columns was not found')
-            }
-            res.status(200).send({text:'removed column', columns})
-        })
-        .catch(e => res.status(400).send(e))
-    })
-
+  Column.findByIdAndRemove(_id)
+      .then(columns => {
+          if (!columns) {
+              return res.status(404).send('columns was not found')
+          }
+          res.status(200).send({text:'removed column', columns})
+      })
+      .catch(e => res.status(400).send(e))
+  })
 
 app.listen(port, () => {
     console.log(`app is running on port: ${port}`)
