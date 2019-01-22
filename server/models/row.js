@@ -10,10 +10,8 @@ const rowSchema = new Schema({
         default: 'row'
     },
     image: {
-        type: Object,
-        default: {},
-        data: Buffer,
-        contentType: String
+        type: String,
+        default: undefined,
     },
     checked: {
         type: String,

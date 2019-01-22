@@ -10,10 +10,8 @@ const columnSchema = new Schema({
         default: 'col'
     },
     image: {
-        type: Object,
-        default: {},
-        data: Buffer,
-        contentType: String,
+      type: String,
+      default: undefined,
     },
     checked: {
         type: String,
